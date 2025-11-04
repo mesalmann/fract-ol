@@ -7,7 +7,11 @@ MLX_DIR		= minilibx-linux
 MLX_LIB		= -L$(MLX_DIR) -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lz
 
 SRCS		= main.c \
-			  utils.c
+			  utils.c \
+			  iter.c \
+			  render.c \
+			  handle.c \
+			  init.c
 
 OBJS		= $(SRCS:.c=.o)
 
