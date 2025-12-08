@@ -1,71 +1,61 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+# include "mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <mlx.h>
+#include <stdio.h>
+
 
 # define WIDTH 800
-# define HEIGHT 800
-
-# define MANDELBROT 1
-# define JULIA 2
-
-# define KEY_ESC 65307
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_UP 65362
-# define KEY_DOWN 65364
-# define MOUSE_SCROLL_UP 4
-# define MOUSE_SCROLL_DOWN 5
+# define HEIGHT 700
 # define MAX_ITER 100
 
-typedef struct s_complex
+typedef struct s_img
 {
-    double  re;
-    double  im;
-}   t_complex;
-typedef struct s_fractal
-{
-    void        *mlx;
-    void        *win;
-    void        *img;
-    char        *img_data;
-    int         bpp;
-    int         line_len;
-    int         endian;
-    
-    int         type;
-    double      min_real;
-    double      max_real;
-    double      min_imag;
-    double      max_imag;
-    
-    double      julia_real;
-    double      julia_imag;
-    t_complex   c;
-    
-    double      zoom;      
-    double      offset_x;  
-    double      offset_y;    
-    int         max_iter;   
-    
-}   t_fractal;
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+}   t_img;
 
-int     arg_check(int ac, char **av);
-int     ft_strcmp(char *s1, char *s2);
-int     fractal_iter(t_fractal *f, t_complex z0, t_complex c);
-int     get_color(t_fractal *f, int iter);
-int     handle_keypress(int key, t_fractal *f);
-int     handle_mouse(int button, int x, int y, t_fractal *f);
-int     handle_close(t_fractal *f);
-void    put_pixel(t_fractal *f, int x, int y, int color);
-void    init_mlx(t_fractal *f);
-void    init_fractal(t_fractal *f, int type, char **av, int ac);
-void    render(t_fractal *f);
-void    print_usage(void);
-double  ft_atof(char *str);
-t_complex   square(t_complex x);
-t_complex   sum(t_complex x, t_complex y);
-t_complex   pixel_to_complex(int x, int y, t_fractal *f);
+typedef struct s_fract
+{
+    void    *mlx;
+    void    *win;
+    t_img   img;
+
+    int     type;
+
+    double  jr;
+    double  ji;
+
+    double  min_re;
+    double  max_re;
+    double  min_im;
+    double  max_im;
+
+    double  step_re;
+    double  step_im;
+
+    double  c_re;
+    double  c_im;
+
+    double  z_re;
+    double  z_im;
+
+    int     iter_count;
+}   t_fract;
+
+// PROTOTYPES
+int     parse_arg(int ac, char **av, t_fract *f);
+int     mouse_hook(int button, int x, int y, t_fract *f);
+int     key_hook(int keycode, t_fract *f);
+int     close_all(t_fract *f);
+void    hooks(t_fract *f);
+void    render_fractal(t_fract *f);
+double  ft_atod(char *str);
+int     ft_strcmp(char *str1, char *str2);
+void mapping(t_fract *f);
 #endif
