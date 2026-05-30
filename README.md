@@ -63,16 +63,6 @@ Example parameters:
 | Arrow Keys   | Navigate      |
 | ESC          | Exit Program  |
 
-## Preview
-
-### Mandelbrot
-
-*[Add screenshot here]*
-
-### Julia
-
-*[Add screenshot here]*
-
 ## Learning Outcomes
 
 Through this project, I gained experience in:
